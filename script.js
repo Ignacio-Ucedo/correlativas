@@ -19,119 +19,136 @@ const elements = {
     strategySection: document.getElementById('strategy-section'),
     newPlanSection: document.getElementById('new-plan-section'),
     planWarning: document.getElementById('plan-warning'),
+    detectedInfo: document.getElementById('detected-info'),
+    detectedCarrera: document.getElementById('detected-carrera'),
+    detectedPlan: document.getElementById('detected-plan'),
+    detectedMaterias: document.getElementById('detected-materias'),
+    newCarreraName: document.getElementById('new-carrera-name'),
+    newPlanName: document.getElementById('new-plan-name'),
+    newMateriasCount: document.getElementById('new-materias-count'),
     progressContainer: document.getElementById('progress-container'),
     strategyContainer: document.getElementById('strategy-container'),
     materiasContainer: document.getElementById('materias-container'),
     availableSubjects: document.getElementById('available-subjects'),
     savedStrategies: document.getElementById('saved-strategies'),
-    carreraSelect: document.getElementById('carrera'),
-    planSelect: document.getElementById('plan'),
     historialText: document.getElementById('historial'),
     procesarBtn: document.getElementById('procesar-btn'),
     addPlanBtn: document.getElementById('add-plan-btn'),
     planificarBtn: document.getElementById('planificar-btn'),
+    newPlanBtn: document.getElementById('new-plan-btn'),
     addPeriodBtn: document.getElementById('add-period-btn'),
     saveStrategyBtn: document.getElementById('save-strategy-btn'),
     exportStrategyBtn: document.getElementById('export-strategy-btn'),
     addMateriaBtn: document.getElementById('add-materia-btn'),
     saveNewPlanBtn: document.getElementById('save-new-plan-btn'),
-    strategyName: document.getElementById('strategy-name'),
-    newCarrera: document.getElementById('new-carrera'),
-    newPlan: document.getElementById('new-plan'),
-    newPlanHistorial: document.getElementById('new-plan-historial'),
-    importPlansBtn: document.getElementById('import-plans-btn'),
-    exportPlansBtn: document.getElementById('export-plans-btn')
+    cancelPlanBtn: document.getElementById('cancel-plan-btn'),
+    strategyName: document.getElementById('strategy-name')
 };
 
-// Planes de estudio de ejemplo
-const samplePlans = {
-    "ing-computacion": {
-        "2013": {
-            carrera: "Ingeniería en Computación",
-            plan: "2013",
-            materias: [
+// Planes de estudio (simulando planes.json)
+let planesData = {
+    "planes": [
+        {
+            "carrera": "Ingeniería en Computación",
+            "plan": "2013",
+            "materias": [
                 {
-                    nombre: "Algoritmos y Programación I",
-                    codigo: "1235",
-                    anio: 1,
-                    periodos_dictado: ["1C", "2C"],
-                    carga_horaria: 6,
-                    correlativas: {
-                        cursada: [],
-                        aprobadas: []
+                    "nombre": "Algoritmos y Programación I",
+                    "codigo": "1235",
+                    "anio": 1,
+                    "periodos_dictado": ["1C", "2C"],
+                    "carga_horaria": 6,
+                    "correlativas": {
+                        "cursada": [],
+                        "aprobadas": []
                     }
                 },
                 {
-                    nombre: "Algoritmos y Programación II",
-                    codigo: "1236",
-                    anio: 1,
-                    periodos_dictado: ["2C"],
-                    carga_horaria: 6,
-                    correlativas: {
-                        cursada: ["Algoritmos y Programación I"],
-                        aprobadas: []
+                    "nombre": "Algoritmos y Programación II",
+                    "codigo": "1236",
+                    "anio": 1,
+                    "periodos_dictado": ["2C"],
+                    "carga_horaria": 6,
+                    "correlativas": {
+                        "cursada": ["Algoritmos y Programación I"],
+                        "aprobadas": []
                     }
                 },
                 {
-                    nombre: "Análisis Matemático I",
-                    codigo: "1265",
-                    anio: 1,
-                    periodos_dictado: ["1C", "2C"],
-                    carga_horaria: 8,
-                    correlativas: {
-                        cursada: [],
-                        aprobadas: []
+                    "nombre": "Análisis Matemático I",
+                    "codigo": "1265",
+                    "anio": 1,
+                    "periodos_dictado": ["1C", "2C"],
+                    "carga_horaria": 8,
+                    "correlativas": {
+                        "cursada": [],
+                        "aprobadas": []
                     }
                 },
                 {
-                    nombre: "Análisis Matemático II",
-                    codigo: "941",
-                    anio: 2,
-                    periodos_dictado: ["1C"],
-                    carga_horaria: 8,
-                    correlativas: {
-                        cursada: ["Análisis Matemático I"],
-                        aprobadas: []
+                    "nombre": "Análisis Matemático II",
+                    "codigo": "941",
+                    "anio": 2,
+                    "periodos_dictado": ["1C"],
+                    "carga_horaria": 8,
+                    "correlativas": {
+                        "cursada": ["Análisis Matemático I"],
+                        "aprobadas": []
                     }
                 },
                 {
-                    nombre: "Estructura de Datos",
-                    codigo: "1237",
-                    anio: 2,
-                    periodos_dictado: ["1C"],
-                    carga_horaria: 6,
-                    correlativas: {
-                        cursada: ["Algoritmos y Programación II"],
-                        aprobadas: ["Análisis Matemático I"]
-                    }
-                },
-                {
-                    nombre: "Diseño Lógico",
-                    codigo: "1238",
-                    anio: 2,
-                    periodos_dictado: ["1C"],
-                    carga_horaria: 6,
-                    correlativas: {
-                        cursada: ["Algoritmos y Programación I"],
-                        aprobadas: []
+                    "nombre": "Estructura de Datos",
+                    "codigo": "1237",
+                    "anio": 2,
+                    "periodos_dictado": ["1C"],
+                    "carga_horaria": 6,
+                    "correlativas": {
+                        "cursada": ["Algoritmos y Programación II"],
+                        "aprobadas": ["Análisis Matemático I"]
                     }
                 }
             ]
         }
-    }
+    ]
 };
+
+// Cargar planes desde localStorage si existen
+function cargarPlanes() {
+    const planesGuardados = localStorage.getItem('planesData');
+    if (planesGuardados) {
+        planesData = JSON.parse(planesGuardados);
+    }
+}
+
+// Guardar planes en localStorage
+function guardarPlanes() {
+    localStorage.setItem('planesData', JSON.stringify(planesData));
+}
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
+    // Cargar planes
+    cargarPlanes();
+    
     // Event Listeners
     elements.procesarBtn.addEventListener('click', procesarHistorial);
     elements.addPlanBtn.addEventListener('click', mostrarNuevoPlan);
     elements.planificarBtn.addEventListener('click', mostrarPlanificador);
+    elements.newPlanBtn.addEventListener('click', () => {
+        elements.progressSection.classList.add('hidden');
+        elements.mainSection.classList.remove('hidden');
+        elements.historialText.value = "";
+        elements.detectedInfo.classList.add('hidden');
+    });
     elements.addPeriodBtn.addEventListener('click', agregarCuatrimestre);
     elements.saveStrategyBtn.addEventListener('click', guardarEstrategia);
     elements.exportStrategyBtn.addEventListener('click', exportarEstrategia);
     elements.addMateriaBtn.addEventListener('click', agregarMateriaNuevoPlan);
     elements.saveNewPlanBtn.addEventListener('click', guardarNuevoPlan);
+    elements.cancelPlanBtn.addEventListener('click', () => {
+        elements.newPlanSection.classList.add('hidden');
+        elements.mainSection.classList.remove('hidden');
+    });
     
     // Tabs
     document.querySelectorAll('.tab').forEach(tab => {
@@ -141,80 +158,79 @@ document.addEventListener('DOMContentLoaded', () => {
             
             tab.classList.add('active');
             document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            
+            if (tab.dataset.tab === 'guardadas') {
+                mostrarEstrategiasGuardadas();
+            }
         });
     });
-    
-    // Cargar datos guardados
-    cargarDatosGuardados();
 });
-
-// Ruta del archivo JSON local de planes
-const PLANES_JSON_PATH = 'planes.json';
-
-// Función para cargar planes desde el archivo JSON local
-async function cargarPlanesDesdeArchivo() {
-    try {
-        const res = await fetch(PLANES_JSON_PATH);
-        if (!res.ok) throw new Error('No se pudo cargar planes.json');
-        const planes = await res.json();
-        return planes;
-    } catch (e) {
-        console.error('Error cargando planes.json:', e);
-        return [];
-    }
-}
-
-// Función para guardar planes en el archivo JSON local (descarga el archivo)
-function guardarPlanesEnArchivo(planes) {
-    const dataStr = JSON.stringify(planes, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    const exportFileDefaultName = 'planes.json';
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-}
 
 // Función para procesar el historial académico
 function procesarHistorial() {
-    data.carrera = elements.carreraSelect.value;
-    data.plan = elements.planSelect.value;
     data.historial = elements.historialText.value;
-    
-    if (!data.carrera || !data.plan) {
-        alert("Por favor, selecciona una carrera y un plan de estudios");
-        return;
-    }
     
     if (!data.historial) {
         alert("Por favor, pega tu historial académico");
         return;
     }
     
-    // Verificar si el plan existe
-    if (!samplePlans[data.carrera] || !samplePlans[data.carrera][data.plan]) {
+    // Extraer carrera y plan del historial
+    extraerCarreraYPlan();
+    
+    // Procesar materias
+    procesarMateriasHistorial();
+    
+    // Mostrar información detectada
+    elements.detectedCarrera.textContent = data.carrera;
+    elements.detectedPlan.textContent = data.plan;
+    elements.detectedMaterias.textContent = data.materiasAprobadas.length;
+    elements.detectedInfo.classList.remove('hidden');
+    
+    // Buscar plan en los datos
+    const planEncontrado = planesData.planes.find(p => 
+        p.carrera === data.carrera && p.plan === data.plan
+    );
+    
+    if (planEncontrado) {
+        elements.planWarning.classList.add('hidden');
+        data.planData = planEncontrado;
+        mostrarProgreso();
+        elements.progressSection.classList.remove('hidden');
+    } else {
         elements.planWarning.classList.remove('hidden');
-        return;
     }
-    
-    elements.planWarning.classList.add('hidden');
-    
-    // Obtener datos del plan
-    data.planData = samplePlans[data.carrera][data.plan];
-    
-    // Procesar historial
-    procesarTextoHistorial();
-    
-    // Mostrar progreso
-    mostrarProgreso();
-    
-    // Mostrar sección de progreso
-    elements.progressSection.classList.remove('hidden');
 }
 
-// Función para procesar el texto del historial
-function procesarTextoHistorial() {
-    // Simulamos el procesamiento del texto
+// Función para extraer carrera y plan del historial
+function extraerCarreraYPlan() {
+    const lineas = data.historial.split('\n');
+    
+    // Buscar línea con "Propuesta" para carrera
+    const carreraLine = lineas.find(line => line.includes('Propuesta:'));
+    if (carreraLine) {
+        const match = carreraLine.match(/Propuesta:\s*\(.*?\)\s*(.+)/);
+        if (match && match[1]) {
+            data.carrera = match[1].trim();
+        }
+    }
+    
+    // Buscar línea con "Plan" para plan de estudios
+    const planLine = lineas.find(line => line.includes('Plan:'));
+    if (planLine) {
+        const match = planLine.match(/Plan:\s*\(.*?\)\s*(\d{4})/);
+        if (match && match[1]) {
+            data.plan = match[1].trim();
+        }
+    }
+    
+    // Si no se encontró, usar valores por defecto
+    if (!data.carrera) data.carrera = "Carrera no detectada";
+    if (!data.plan) data.plan = "Plan no detectado";
+}
+
+// Función para procesar las materias del historial
+function procesarMateriasHistorial() {
     const lineas = data.historial.split('\n');
     data.materiasAprobadas = [];
     
@@ -248,8 +264,6 @@ function procesarTextoHistorial() {
             }
         }
     });
-    
-    console.log("Materias aprobadas detectadas:", data.materiasAprobadas);
 }
 
 // Función para mostrar el progreso académico
@@ -295,14 +309,19 @@ function mostrarProgreso() {
             materiaInfo.className = 'subject-info';
             
             const materiaNombre = document.createElement('div');
+            materiaNombre.className = 'subject-name';
             materiaNombre.textContent = materia.nombre;
             
-            const materiaCodigo = document.createElement('div');
-            materiaCodigo.className = 'subject-code';
-            materiaCodigo.textContent = `Código: ${materia.codigo} | Carga: ${materia.carga_horaria}hs`;
+            const materiaDetalles = document.createElement('div');
+            materiaDetalles.className = 'subject-details';
+            materiaDetalles.innerHTML = `
+                <span>Código: ${materia.codigo}</span>
+                <span>Carga: ${materia.carga_horaria}hs</span>
+                <span>Período: ${materia.periodos_dictado.join(', ')}</span>
+            `;
             
             materiaInfo.appendChild(materiaNombre);
-            materiaInfo.appendChild(materiaCodigo);
+            materiaInfo.appendChild(materiaDetalles);
             
             const materiaStatus = document.createElement('div');
             materiaStatus.className = 'subject-status';
@@ -403,7 +422,7 @@ function mostrarMateriasDisponibles() {
         if (!aprobada && cumpleCorrelativas) {
             const materiaElement = document.createElement('div');
             materiaElement.className = 'subject habilitada';
-            materiaElement.style.marginBottom = '10px';
+            materiaElement.style.marginBottom = '12px';
             materiaElement.style.cursor = 'move';
             materiaElement.draggable = true;
             materiaElement.dataset.nombre = materia.nombre;
@@ -420,14 +439,19 @@ function mostrarMateriasDisponibles() {
             materiaInfo.className = 'subject-info';
             
             const materiaNombre = document.createElement('div');
+            materiaNombre.className = 'subject-name';
             materiaNombre.textContent = materia.nombre;
             
-            const materiaCodigo = document.createElement('div');
-            materiaCodigo.className = 'subject-code';
-            materiaCodigo.textContent = `Código: ${materia.codigo} | Carga: ${materia.carga_horaria}hs`;
+            const materiaDetalles = document.createElement('div');
+            materiaDetalles.className = 'subject-details';
+            materiaDetalles.innerHTML = `
+                <span>Código: ${materia.codigo}</span>
+                <span>Carga: ${materia.carga_horaria}hs</span>
+                <span>Período: ${materia.periodos_dictado.join(', ')}</span>
+            `;
             
             materiaInfo.appendChild(materiaNombre);
-            materiaInfo.appendChild(materiaCodigo);
+            materiaInfo.appendChild(materiaDetalles);
             
             materiaElement.appendChild(materiaInfo);
             elements.availableSubjects.appendChild(materiaElement);
@@ -462,8 +486,8 @@ function agregarCuatrimestre() {
                     data-periodo="${periodo.nombre}"
                     ondrop="dropMateria(event)" 
                     ondragover="allowDrop(event)"
-                    style="min-height: 100px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 4px;">
-                <p style="text-align: center; color: #777; font-size: 0.9rem;">Arrastra materias aquí</p>
+                    style="min-height: 150px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <p style="text-align: center; color: #a0b3d6; font-size: 0.95rem;">Arrastra materias aquí</p>
             </div>
             <div class="period-total">Carga total: <span class="total-carga">0</span>hs</div>
         </div>
@@ -596,30 +620,30 @@ function mostrarEstrategiasGuardadas() {
     estrategias.forEach((estrategia, index) => {
         const estrategiaElement = document.createElement('div');
         estrategiaElement.className = 'card';
-        estrategiaElement.style.marginBottom = '15px';
+        estrategiaElement.style.marginBottom = '20px';
         
         estrategiaElement.innerHTML = `
-            <h3>${estrategia.nombre}</h3>
-            <div class="strategy-container" style="margin-top: 15px;">
+            <h3 style="margin-bottom: 15px;">${estrategia.nombre}</h3>
+            <div class="strategy-container" style="margin-top: 10px;">
                 ${estrategia.cuatrimestres.map(cuat => `
                     <div class="strategy-card">
                         <div class="strategy-header">
                             <div>${cuat.periodo}</div>
                         </div>
                         <div class="strategy-period">
-                            <ul style="padding: 15px;">
-                                ${cuat.materias.map(mat => `<li>${mat}</li>`).join('')}
+                            <ul style="padding: 15px; list-style-type: none;">
+                                ${cuat.materias.map(mat => `<li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">${mat}</li>`).join('')}
                             </ul>
                             <div class="period-total">Carga total: ${cuat.carga_total}hs</div>
                         </div>
                     </div>
                 `).join('')}
             </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px;">
-                <button class="btn btn-danger btn-sm delete-strategy" data-index="${index}">
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button class="btn btn-danger delete-strategy" data-index="${index}">
                     <i class="fas fa-trash"></i> Eliminar
                 </button>
-                <button class="btn btn-success btn-sm load-strategy" data-index="${index}">
+                <button class="btn btn-success load-strategy" data-index="${index}">
                     <i class="fas fa-upload"></i> Cargar
                 </button>
             </div>
@@ -654,78 +678,6 @@ function eliminarEstrategia(index) {
             localStorage.setItem('estrategias', JSON.stringify(estrategias));
             mostrarEstrategiasGuardadas();
         }
-    }
-}
-
-// Función para cargar una estrategia
-function cargarEstrategia(index) {
-    const estrategias = JSON.parse(localStorage.getItem('estrategias')) || [];
-    if (index >= 0 && index < estrategias.length) {
-        data.currentStrategy = estrategias[index];
-        elements.strategyName.value = data.currentStrategy.nombre;
-        
-        // Limpiar contenedor
-        elements.strategyContainer.innerHTML = '';
-        
-        // Crear cuatrimestres
-        data.currentStrategy.cuatrimestres.forEach(cuat => {
-            const periodoElement = document.createElement('div');
-            periodoElement.className = 'strategy-card';
-            
-            // Determinar color basado en el nombre del periodo
-            let colorClass = 'period-blue';
-            if (cuat.periodo.includes('Mar–Jul')) colorClass = 'period-pink';
-            if (cuat.periodo.includes('Ago–Dic') && cuat.periodo.includes('2026')) colorClass = 'period-green';
-            
-            periodoElement.innerHTML = `
-                <div class="strategy-header">
-                    <div>Cuatrimestre</div>
-                    <button class="btn btn-danger btn-sm remove-period"><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="strategy-period ${colorClass}">
-                    <div class="period-title">
-                        <div>${cuat.periodo}</div>
-                        <div>Materias</div>
-                    </div>
-                    <div class="period-subjects" 
-                            data-periodo="${cuat.periodo}"
-                            ondrop="dropMateria(event)" 
-                            ondragover="allowDrop(event)"
-                            style="min-height: 100px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 4px;">
-                        ${cuat.materias.map(mat => `
-                            <div class="period-subject">
-                                <div>${mat}</div>
-                                <div>${data.planData.materias.find(m => m.nombre === mat)?.carga_horaria || 0}hs</div>
-                                <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="period-total">Carga total: <span class="total-carga">${cuat.carga_total}</span>hs</div>
-                </div>
-            `;
-            
-            elements.strategyContainer.appendChild(periodoElement);
-            
-            // Agregar evento para eliminar cuatrimestre
-            periodoElement.querySelector('.remove-period').addEventListener('click', () => {
-                periodoElement.remove();
-                actualizarTotales();
-            });
-            
-            // Agregar eventos para eliminar materias
-            periodoElement.querySelectorAll('.period-subject button').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    btn.closest('.period-subject').remove();
-                    actualizarTotales();
-                });
-            });
-        });
-        
-        // Cambiar a la pestaña de simulador
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelector('.tab[data-tab="simulador"]').classList.add('active');
-        document.getElementById('simulador-tab').classList.add('active');
     }
 }
 
@@ -775,58 +727,15 @@ function mostrarNuevoPlan() {
     elements.newPlanSection.classList.remove('hidden');
     elements.mainSection.classList.add('hidden');
     elements.materiasContainer.innerHTML = '';
-    // Agregar textarea para historial
-    if (!document.getElementById('new-plan-historial')) {
-        const historialDiv = document.createElement('div');
-        historialDiv.className = 'form-group';
-        historialDiv.innerHTML = `
-            <label for="new-plan-historial">Pega tu historial académico para autocompletar materias:</label>
-            <textarea id="new-plan-historial" placeholder="Copia y pega aquí tu historial académico..."></textarea>
-            <button class="btn" id="procesar-historial-plan-btn" style="margin-top:10px;">Procesar Historial</button>
-        `;
-        elements.newPlanSection.insertBefore(historialDiv, elements.materiasContainer);
-        document.getElementById('procesar-historial-plan-btn').onclick = procesarHistorialNuevoPlan;
-    }
-    // Agregar botones de import/export
-    if (!document.getElementById('import-plans-btn')) {
-        const btnDiv = document.createElement('div');
-        btnDiv.style.margin = '10px 0';
-        btnDiv.innerHTML = `
-            <button class="btn" id="import-plans-btn"><i class="fas fa-upload"></i> Importar Planes JSON</button>
-            <button class="btn" id="export-plans-btn"><i class="fas fa-download"></i> Exportar Planes JSON</button>
-        `;
-        elements.newPlanSection.insertBefore(btnDiv, elements.newPlanSection.firstChild);
-        document.getElementById('import-plans-btn').onclick = importarPlanesJSON;
-        document.getElementById('export-plans-btn').onclick = exportarPlanesJSON;
-    }
+    
+    // Establecer valores detectados
+    elements.newCarreraName.textContent = data.carrera;
+    elements.newPlanName.textContent = data.plan;
+    elements.newMateriasCount.textContent = data.materiasAprobadas.length;
+    
     // Agregar materias del historial
     data.materiasAprobadas.forEach(materia => {
         agregarFilaMateria(materia.nombre, materia.codigo, materia.anio);
-    });
-}
-
-// Procesar historial para autocompletar materias en nuevo plan
-function procesarHistorialNuevoPlan() {
-    const texto = document.getElementById('new-plan-historial').value;
-    if (!texto) {
-        alert('Pega tu historial académico.');
-        return;
-    }
-    const lineas = texto.split('\n');
-    elements.materiasContainer.innerHTML = '';
-    lineas.forEach(linea => {
-        if (linea.includes('(Aprobado)')) {
-            const partes = linea.split('\t');
-            if (partes.length > 4) {
-                let nombre = partes[0].trim();
-                let codigo = '';
-                const codigoMatch = nombre.match(/\((\d+)\)/);
-                if (codigoMatch) codigo = codigoMatch[1];
-                nombre = nombre.replace(/\(\d+\)/g, '').trim();
-                const anio = parseInt(partes[2]);
-                agregarFilaMateria(nombre, codigo, anio);
-            }
-        }
     });
 }
 
@@ -860,12 +769,12 @@ function agregarMateriaNuevoPlan() {
 }
 
 // Función para guardar el nuevo plan de estudios
-async function guardarNuevoPlan() {
-    const carrera = elements.newCarrera.value.trim();
-    const plan = elements.newPlan.value.trim();
+function guardarNuevoPlan() {
+    const carrera = data.carrera;
+    const plan = data.plan;
     
     if (!carrera || !plan) {
-        alert("Por favor, ingresa el nombre de la carrera y el plan");
+        alert("No se ha detectado carrera o plan válido");
         return;
     }
     
@@ -909,79 +818,22 @@ async function guardarNuevoPlan() {
         materias
     };
     
-    let planes = await cargarPlanesDesdeArchivo();
-    planes.push(nuevoPlan);
-    guardarPlanesEnArchivo(planes);
+    // Agregar a planesData
+    planesData.planes.push(nuevoPlan);
+    
+    // Guardar planes
+    guardarPlanes();
     
     alert(`Plan de estudios "${carrera} - ${plan}" guardado exitosamente`);
     
     // Volver a la página principal
     elements.newPlanSection.classList.add('hidden');
     elements.mainSection.classList.remove('hidden');
-}
-
-// Función para exportar planes como JSON
-function exportarPlanesJSON() {
-    const planes = JSON.parse(localStorage.getItem('planes')) || [];
-    const dataStr = JSON.stringify(planes, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    const exportFileDefaultName = 'planes.json';
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-}
-
-// Función para importar planes desde JSON
-function importarPlanesJSON() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json,application/json';
-    input.onchange = e => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = evt => {
-            try {
-                const planes = JSON.parse(evt.target.result);
-                if (Array.isArray(planes)) {
-                    localStorage.setItem('planes', JSON.stringify(planes));
-                    alert('Planes importados correctamente.');
-                    location.reload();
-                } else {
-                    alert('El archivo no tiene el formato correcto.');
-                }
-            } catch {
-                alert('Error al leer el archivo JSON.');
-            }
-        };
-        reader.readAsText(file);
-    };
-    input.click();
-}
-
-// Función para cargar datos guardados
-async function cargarDatosGuardados() {
-    const planes = await cargarPlanesDesdeArchivo();
-    // Agregar planes a los selectores
-    planes.forEach(plan => {
-        if (![...elements.carreraSelect.options].some(opt => opt.value === plan.carrera)) {
-            const option = document.createElement('option');
-            option.value = plan.carrera;
-            option.textContent = plan.carrera;
-            elements.carreraSelect.appendChild(option);
-        }
-    });
-    elements.carreraSelect.addEventListener('change', () => {
-        const carrera = elements.carreraSelect.value;
-        elements.planSelect.innerHTML = '<option value="">Selecciona tu plan</option>';
-        planes.filter(p => p.carrera === carrera).forEach(plan => {
-            const option = document.createElement('option');
-            option.value = plan.plan;
-            option.textContent = plan.plan;
-            elements.planSelect.appendChild(option);
-        });
-    });
+    
+    // Procesar el historial nuevamente para usar el nuevo plan
+    data.planData = nuevoPlan;
+    mostrarProgreso();
+    elements.progressSection.classList.remove('hidden');
 }
 
 // Hacer funciones accesibles globalmente para el drag and drop
