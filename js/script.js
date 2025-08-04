@@ -1,8 +1,11 @@
+import { patrones } from './regexes.js';
+
 // Objeto para almacenar datos
 const data = {
     carrera: "",
     plan: "",
     historial: "",
+    materiasDetectadas: [],
     materiasAprobadas: [],
     planData: null,
     estrategias: [],
@@ -177,6 +180,9 @@ function procesarHistorial() {
     
     // Extraer carrera y plan del historial
     extraerCarreraYPlan();
+
+    // Extraer campos
+    extraerCamposHistorial();
     
     // Procesar materias
     procesarMateriasHistorial();
@@ -184,7 +190,7 @@ function procesarHistorial() {
     // Mostrar información detectada
     elements.detectedCarrera.textContent = data.carrera;
     elements.detectedPlan.textContent = data.plan;
-    elements.detectedMaterias.textContent = data.materiasAprobadas.length;
+    elements.detectedMaterias.textContent = data.materiasDetectadas.length;
     elements.detectedInfo.classList.remove('hidden');
     
     // Buscar plan en los datos
@@ -204,66 +210,59 @@ function procesarHistorial() {
 
 // Función para extraer carrera y plan del historial
 function extraerCarreraYPlan() {
-    const lineas = data.historial.split('\n');
-    
-    // Buscar línea con "Propuesta" para carrera
-    const carreraLine = lineas.find(line => line.includes('Propuesta:'));
-    if (carreraLine) {
-        const match = carreraLine.match(/Propuesta:\s*\(.*?\)\s*(.+)/);
-        if (match && match[1]) {
-            data.carrera = match[1].trim();
-        }
+    //carrera
+    const carreraMatch = data.historial.match(patrones.carrera);
+    if (carreraMatch) {
+        data.carrera = carreraMatch[1];
+        console.log(data.carrera);
     }
     
-    // Buscar línea con "Plan" para plan de estudios
-    const planLine = lineas.find(line => line.includes('Plan:'));
-    if (planLine) {
-        const match = planLine.match(/Plan:\s*\(.*?\)\s*(\d{4})/);
-        if (match && match[1]) {
-            data.plan = match[1].trim();
-        }
+    //plan
+    const planMatch = data.historial.match(patrones.plan);
+    if (planMatch) {
+        data.plan = planMatch[1];
+        console.log(data.plan);
     }
-    
-    // Si no se encontró, usar valores por defecto
+
+
     if (!data.carrera) data.carrera = "Carrera no detectada";
     if (!data.plan) data.plan = "Plan no detectado";
 }
 
+function extraerCamposHistorial() {
+    const camposMatch = data.historial.match(patrones.campos);
+    if (camposMatch) {
+        const campos = camposMatch[0].trim().split('\t').map(c => c.trim());
+        data.campos = campos;
+        console.log("Campos extraídos:", data.campos);
+    } else {
+        console.warn("No se encontraron campos en el historial");
+        data.campos = [];
+    }
+}
+
 // Función para procesar las materias del historial
 function procesarMateriasHistorial() {
-    const lineas = data.historial.split('\n');
-    data.materiasAprobadas = [];
-    
-    lineas.forEach(linea => {
-        if (linea.includes('(Aprobado)')) {
-            const partes = linea.split('\t');
-            if (partes.length > 4) {
-                const nombre = partes[0].trim();
-                const anio = parseInt(partes[2]);
-                const periodo = partes[3].trim();
-                const notaMatch = partes[4].match(/\d+/);
-                const nota = notaMatch ? parseInt(notaMatch[0]) : null;
-                
-                // Buscar código si está disponible
-                let codigo = "";
-                const codigoMatch = nombre.match(/\((\d+)\)/);
-                if (codigoMatch) {
-                    codigo = codigoMatch[1];
+    const materiasMatches = data.historial.matchAll(patrones.materias);
+    //longitud
+    if (materiasMatches) {
+        data.materiasDetectadas = Array.from(materiasMatches).map(match => {
+            const nombre = match[1].trim();
+            const codigo = match[2]
+            return {
+                nombre: nombre,
+                codigo: codigo,
+                anio: 1, 
+                periodos_dictado: ["1C"], 
+                carga_horaria: 6, 
+                correlativas: {
+                    cursada: [],
+                    aprobadas: []
                 }
-                
-                // Extraer nombre limpio
-                const nombreLimpio = nombre.replace(/\(\d+\)/g, '').trim();
-                
-                data.materiasAprobadas.push({
-                    nombre: nombreLimpio,
-                    codigo,
-                    anio,
-                    periodo,
-                    nota
-                });
-            }
-        }
-    });
+            };
+        });
+        console.log("Materias detectadas:", data.materiasDetectadas);
+    }
 }
 
 // Función para mostrar el progreso académico

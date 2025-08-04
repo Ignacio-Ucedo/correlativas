@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Planificador Universitario</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -10,183 +10,159 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h1>Planificador Universitario</h1>
-            </div>
-            <p>Visualiza tu progreso académico y planifica tu cursada automáticamente</p>
+      <div class="container">
+        <div class="logo-container">
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h1>Planificador Universitario</h1>
         </div>
+        <p>Visualizá tu progreso académico y planificá tu cursada</p>
+      </div>
     </header>
-    
     <div class="container">
-        <div class="card" id="main-section">
-            <div class="card-title">
-                <i class="fas fa-paste"></i>
-                <h2>Historial Académico</h2>
-            </div>
-            
-            <div class="form-group">
-                <label for="historial">Pega tu historial académico completo:</label>
-                <textarea id="historial" placeholder="Copia y pega aquí tu historial académico completo..."></textarea>
-                <div class="help-text">Ejemplo del formato esperado: "Algoritmos y Programación I (1235) Materia 1 1er Cuatrimestre 9 (Aprobado)"</div>
-            </div>
-            
-            <div class="detected-info hidden" id="detected-info">
-                <div class="info-item">
-                    <div class="info-label">Carrera detectada:</div>
-                    <div class="info-value" id="detected-carrera">-</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Plan detectado:</div>
-                    <div class="info-value" id="detected-plan">-</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Materias detectadas:</div>
-                    <div class="info-value" id="detected-materias">0</div>
-                </div>
-            </div>
-            
-            <div class="notification notification-warning hidden" id="plan-warning">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div class="notification-content">
-                    <div class="notification-title">Plan no encontrado</div>
-                    <p>El plan de estudios detectado no está disponible en nuestro sistema. Puedes agregarlo utilizando el historial pegado como base.</p>
-                </div>
-                <button class="btn btn-warning" id="add-plan-btn">
-                    <i class="fas fa-plus-circle"></i> Agregar Plan
-                </button>
-            </div>
-            
-            <button class="btn btn-purple" id="procesar-btn">
-                <i class="fas fa-cogs"></i> Procesar Historial
+      <div class="card" id="main-section">
+        <div class="card-title">
+          <i class="fas fa-paste"></i>
+          <h2>Historial Académico</h2>
+        </div>
+        <div class="form-group">
+          <label for="historial">Pegá tu historial académico completo</label>
+          <textarea id="historial" placeholder="Copiá y pegá aquí tu historial académico completo..."></textarea>
+          <div class="help-text">
+            Asegurate que el texto contenga "Propuesta", "Plan" y las materias
+          </div>
+        </div>
+        <div class="detected-info hidden" id="detected-info">
+          <div class="info-item">
+            <div class="info-label">Carrera detectada:</div>
+            <div class="info-value" id="detected-carrera">-</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Plan detectado:</div>
+            <div class="info-value" id="detected-plan">-</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Materias detectadas:</div>
+            <div class="info-value" id="detected-materias">0</div>
+          </div>
+        </div>
+        <button class="btn btn-purple" id="procesar-btn">
+          <i class="fas fa-cogs"></i> Procesar Historial
+        </button>
+        <div class="notification notification-warning hidden" id="plan-warning">
+          <i class="fas fa-exclamation-triangle"></i>
+          <div class="notification-content">
+            <div class="notification-title">Plan no encontrado</div>
+            <p>
+              El plan de estudios detectado no está disponible en nuestro
+              sistema. Puedes agregarlo utilizando el historial subido como
+              base.
+            </p>
+          </div>
+          <button class="btn btn-warning" id="add-plan-btn">
+            <i class="fas fa-plus-circle"></i> Agregar Plan
+          </button>
+        </div>
+      </div>
+      <div class="card hidden" id="progress-section">
+        <div class="card-title">
+          <i class="fas fa-chart-line"></i>
+          <h2>Progreso Académico</h2>
+        </div>
+        <div class="progress-grid" id="progress-container">
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-success" id="planificar-btn">
+            <i class="fas fa-chess-board"></i> Planificar Estrategia
+          </button>
+          <button class="btn" id="new-plan-btn">
+            <i class="fas fa-sync"></i> Procesar Nuevo Historial
+          </button>
+        </div>
+      </div>
+      <div class="card hidden" id="strategy-section">
+        <div class="card-title">
+          <i class="fas fa-chess"></i>
+          <h2>Planificador de Estrategias</h2>
+        </div>
+        <div class="tabs">
+          <div class="tab active" data-tab="simulador">Simulador</div>
+          <div class="tab" data-tab="materias">Materias Disponibles</div>
+          <div class="tab" data-tab="guardadas">Estrategias Guardadas</div>
+        </div>
+        <div class="tab-content active" id="simulador-tab">
+          <div class="form-group">
+            <label for="strategy-name">Nombre de la estrategia:</label>
+            <input type="text" id="strategy-name" placeholder="Ej: Estrategia intensiva 2025" />
+          </div>
+          <div class="strategy-container" id="strategy-container"></div>
+          <button class="btn" id="add-period-btn">
+            <i class="fas fa-plus"></i> Agregar Cuatrimestre
+          </button>
+          <div class="action-buttons">
+            <button class="btn btn-success" id="save-strategy-btn">
+              <i class="fas fa-save"></i> Guardar Estrategia
             </button>
-        </div>
-        
-        <div class="card hidden" id="progress-section">
-            <div class="card-title">
-                <i class="fas fa-chart-line"></i>
-                <h2>Progreso Académico</h2>
-            </div>
-            
-            <div class="progress-grid" id="progress-container">
-                <!-- Aquí se generará la visualización del progreso -->
-            </div>
-            
-            <div class="action-buttons">
-                <button class="btn btn-success" id="planificar-btn">
-                    <i class="fas fa-chess-board"></i> Planificar Estrategia
-                </button>
-                <button class="btn" id="new-plan-btn">
-                    <i class="fas fa-sync"></i> Procesar Nuevo Historial
-                </button>
-            </div>
-        </div>
-        
-        <div class="card hidden" id="strategy-section">
-            <div class="card-title">
-                <i class="fas fa-chess"></i>
-                <h2>Planificador de Estrategias</h2>
-            </div>
-            
-            <div class="tabs">
-                <div class="tab active" data-tab="simulador">Simulador</div>
-                <div class="tab" data-tab="materias">Materias Disponibles</div>
-                <div class="tab" data-tab="guardadas">Estrategias Guardadas</div>
-            </div>
-            
-            <div class="tab-content active" id="simulador-tab">
-                <div class="form-group">
-                    <label for="strategy-name">Nombre de la estrategia:</label>
-                    <input type="text" id="strategy-name" placeholder="Ej: Estrategia intensiva 2025">
-                </div>
-                
-                <div class="strategy-container" id="strategy-container">
-                    <!-- Se generarán las tarjetas de cuatrimestres aquí -->
-                </div>
-                
-                <button class="btn" id="add-period-btn">
-                    <i class="fas fa-plus"></i> Agregar Cuatrimestre
-                </button>
-                
-                <div class="action-buttons">
-                    <button class="btn btn-success" id="save-strategy-btn">
-                        <i class="fas fa-save"></i> Guardar Estrategia
-                    </button>
-                    <button class="btn" id="export-strategy-btn">
-                        <i class="fas fa-download"></i> Exportar como JSON
-                    </button>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="materias-tab">
-                <div id="available-subjects">
-                    <!-- Se mostrarán las materias disponibles para cursar -->
-                </div>
-            </div>
-            
-            <div class="tab-content" id="guardadas-tab">
-                <div id="saved-strategies">
-                    <!-- Se mostrarán las estrategias guardadas -->
-                </div>
-            </div>
-        </div>
-        
-        <div class="card hidden" id="new-plan-section">
-            <div class="card-title">
-                <i class="fas fa-plus-circle"></i>
-                <h2>Crear Nuevo Plan de Estudios</h2>
-            </div>
-            
-            <div class="detected-info">
-                <div class="info-item">
-                    <div class="info-label">Carrera:</div>
-                    <div class="info-value" id="new-carrera-name">-</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Plan:</div>
-                    <div class="info-value" id="new-plan-name">-</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Materias detectadas:</div>
-                    <div class="info-value" id="new-materias-count">0</div>
-                </div>
-            </div>
-            
-            <div class="help-text" style="margin: 20px 0;">
-                Se ha generado automáticamente un esqueleto del plan de estudios basado en tu historial. 
-                Por favor, completa los campos faltantes y ajusta la información según sea necesario.
-            </div>
-            
-            <div class="materia-header">
-                <div>Materia</div>
-                <div>Código</div>
-                <div>Año</div>
-                <div>Período</div>
-                <div>Carga Horaria</div>
-                <div>Correlativas de Cursada</div>
-                <div>Correlativas de Aprobación</div>
-            </div>
-            
-            <div id="materias-container">
-                <!-- Se generarán las filas de materias aquí -->
-            </div>
-            
-            <button class="btn" id="add-materia-btn">
-                <i class="fas fa-plus"></i> Agregar Materia
+            <button class="btn" id="export-strategy-btn">
+              <i class="fas fa-download"></i> Exportar como JSON
             </button>
-            
-            <div class="action-buttons">
-                <button class="btn btn-success" id="save-new-plan-btn">
-                    <i class="fas fa-save"></i> Guardar Plan de Estudios
-                </button>
-                <button class="btn btn-warning" id="cancel-plan-btn">
-                    <i class="fas fa-times"></i> Cancelar
-                </button>
-            </div>
+          </div>
         </div>
+        <div class="tab-content" id="materias-tab">
+          <div id="available-subjects"></div>
+        </div>
+        <div class="tab-content" id="guardadas-tab">
+          <div id="saved-strategies"></div>
+        </div>
+      </div>
+      <div class="card hidden" id="new-plan-section">
+        <div class="card-title">
+          <i class="fas fa-plus-circle"></i>
+          <h2>Crear Nuevo Plan de Estudios</h2>
+        </div>
+        <div class="detected-info">
+          <div class="info-item">
+            <div class="info-label">Carrera:</div>
+            <div class="info-value" id="new-carrera-name">-</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Plan:</div>
+            <div class="info-value" id="new-plan-name">-</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Materias detectadas:</div>
+            <div class="info-value" id="new-materias-count">0</div>
+          </div>
+        </div>
+        <div class="help-text" style="margin: 20px 0">
+          Se generó automáticamente un esqueleto del plan de estudios
+          basado en tu historial. Por favor, completá los campos faltantes y
+          ajustá la información según sea necesario.
+        </div>
+        <div class="materia-header">
+          <div>Materia</div>
+          <div>Código</div>
+          <div>Año</div>
+          <div>Período</div>
+          <div>Carga Horaria</div>
+          <div>Correlativas de Cursada</div>
+          <div>Correlativas de Aprobación</div>
+        </div>
+        <div id="materias-container"></div>
+        <button class="btn" id="add-materia-btn">
+          <i class="fas fa-plus"></i> Agregar Materia
+        </button>
+        <div class="action-buttons">
+          <button class="btn btn-success" id="save-new-plan-btn">
+            <i class="fas fa-save"></i> Guardar Plan de Estudios
+          </button>
+          <button class="btn btn-warning" id="cancel-plan-btn">
+            <i class="fas fa-times"></i> Cancelar
+          </button>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
+  <script type="module" src="script.js"></script>
 </html>
