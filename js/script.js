@@ -2,7 +2,7 @@ import { patrones } from './regexes.js';
 
 // Objeto para almacenar datos
 const data = {
-    carrera: "",
+    carrera: "", 
     plan: "",
     historial: "",
     materiasDetectadas: [],
@@ -214,19 +214,21 @@ function extraerCarreraYPlan() {
     const carreraMatch = data.historial.match(patrones.carrera);
     if (carreraMatch) {
         data.carrera = carreraMatch[1];
-        console.log(data.carrera);
+        console.log("carrera detectada:\n" + data.carrera);
+    }else {
+        console.log("No se pudo detectar la carrera");
+        data.carrera = "Carrera no detectada";
     }
     
     //plan
-    const planMatch = data.historial.match(patrones.plan);
+    const planMatch = data.historial.match(patrones.plan); // Queda por testear nuevamente el plan viejo, a ver si lo detecta
     if (planMatch) {
         data.plan = planMatch[1];
-        console.log(data.plan);
+        console.log("plan detectado:\n" + data.plan);
+    }else {
+        console.log("No se pudo detectar el plan de estudios");
+        data.plan = "Plan no detectado";            
     }
-
-
-    if (!data.carrera) data.carrera = "Carrera no detectada";
-    if (!data.plan) data.plan = "Plan no detectado";
 }
 
 function extraerCamposHistorial() {
