@@ -1,0 +1,75 @@
+
+ 0
+ RAÚL ALFONSÍN 
+Propuesta: Ingeniería en computación 
+Inscripción a Materias
+Reportes 
+Trámites 
+Mis datos personales
+Cursos
+Perfil: Alumno 
+Plan de estudio
+Propuesta: (32) Ingeniería en Computación	Plan: (32.3) R.C.S. 13/2022	Versión: Versión 1
+ExpandirContraer
+Materia Genérica: Asignatura Optativa de Tecnicaturas (1740)
+Cumplimiento: Tener 1 actividades aprobadas
+Verificar
+Actividad	Tipo	Año	Período	Nota	Origen	Créditos	Puntaje	Correlativas
+Asignatura Optativa de Tecnicaturas: "Diseño de Páginas Web" (1739)	Materia	2	2do Cuatrimestre			4.00	0.00	Ver
+Asignatura Optativa de Tecnicaturas: "Fundamentos de Computación" (1243)	Materia	2	2do Cuatrimestre			4.00	0.00	Ver
+Asignatura Optativa de Tecnicaturas: "Arquitecturas Avanzadas" (1849)	Materia	2	2do Cuatrimestre			4.00	0.00	Ver
+Asignatura Optativa de Tecnicaturas: "Inteligencia Artificial" (1850)	Materia	2	2do Cuatrimestre	10 (Aprobado)		4.00	0.00	
+Materia Genérica: Asignatura Optativa de Ingeniería (1742)
+Cumplimiento: Tener 1 actividades aprobadas
+Verificar
+Actividad	Tipo	Año	Período	Nota	Origen	Créditos	Puntaje	Correlativas
+Asignatura Optativa de Ingeniería: "Sistemas Operativos Avanzados" (1741)	Materia	3	2do Cuatrimestre			4.00	0.00	
+Asignatura Optativa de Ingeniería: "Ingeniería de Requerimientos" (1258)	Materia	3	2do Cuatrimestre			4.00	0.00	
+Asignatura Optativa de Ingeniería: "Arquitecturas Avanzadas" (1874)	Materia	3	1er Cuatrimestre			4.00	0.00	
+Asignatura Optativa de Ingeniería: "Ingeniería de Sotware II" (1875)	Materia					4.00	0.00	
+Materia Genérica: Asignatura Electiva (1743)
+Actividad	Tipo	Año	Período	Nota	Origen	Créditos	Puntaje	Correlativas
+Introducción a la Ingeniería en Computación (1700)	Materia	1	1er Cuatrimestre	10 (Aprobado)		4.00		
+Algoritmos y Programación I (1701)	Materia	1	1er Cuatrimestre	10 (Aprobado)		8.00		
+Introducción a la Problemática del Mundo Contemporáneo (592)	Materia	1	1er Cuatrimestre	10 (Aprobado)		4.00		
+Base de Datos (1717)	Materia	3	1er Cuatrimestre	10 (Aprobado)		4.00		Ver
+Probabilidad y Estadística (1716)	Materia	3	2do Cuatrimestre			4.00		Ver
+Sistemas Operativos (1715)	Materia	2	2do Cuatrimestre	10 (Aprobado)		4.00		Ver
+Taller de lectoescritura (1714)	Materia	2	2do Cuatrimestre	10 (Aprobado)		2.00		
+Física I (1713)	Materia	3	1er Cuatrimestre	10 (Aprobado)		8.00		Ver
+Álgebra III (1712)	Materia	4	1er Cuatrimestre			4.00		Ver
+Análisis Matemático II (1711)	Materia	2	2do Cuatrimestre	10 (Aprobado)		8.00		Ver
+Arquitecturas de Computadoras I (1710)	Materia	2	1er Cuatrimestre	10 (Aprobado)		4.00		Ver
+Estructura de Datos (1709)	Materia	2	1er Cuatrimestre	10 (Aprobado)		4.00		Ver
+Análisis Matemático I (1708)	Materia	2	1er Cuatrimestre	10 (Aprobado)		8.00		Ver
+Programación de bajo nivel (1707)	Materia	1	2do Cuatrimestre	10 (Aprobado)		4.00		Ver
+Diseño Lógico (1706)	Materia	1	2do Cuatrimestre	10 (Aprobado)		4.00		Ver
+Álgebra II (1705)	Materia	1	2do Cuatrimestre	10 (Aprobado)		4.00		Ver
+Algoritmos y Programación II (1704)	Materia	1	2do Cuatrimestre	10 (Aprobado)		8.00		Ver
+Matemática Discreta (1703)	Materia	1	1er Cuatrimestre	10 (Aprobado)		4.00		
+Álgebra I (1702)	Materia	1	1er Cuatrimestre	10 (Aprobado)		4.00		
+Práctica Profesional Supervisada (1736)	Materia	5	2do Cuatrimestre			8.00		Ver
+Trabajo Final Integrador (1735)	Materia	5	2do Cuatrimestre			12.00		Ver
+Higiene y Seguridad (1734)	Materia	5	2do Cuatrimestre			2.00		Ver
+Ética y Legislación (1733)	Materia	5	2do Cuatrimestre			2.00		Ver
+Control Automático (1732)	Materia	5	1er Cuatrimestre			4.00		Ver
+Sistemas Ciberfísicos (1731)	Materia	5	1er Cuatrimestre			4.00		Ver
+Sistemas Embebidos (1730)	Materia	5	1er Cuatrimestre			4.00		Ver
+Procesamiento de Señales (1729)	Materia	4	2do Cuatrimestre			4.00		Ver
+Construcción de Sistemas de Computación (1728)	Materia	4	2do Cuatrimestre			4.00		Ver
+Laboratorio de Electrónica (1727)	Materia	4	2do Cuatrimestre			4.00		Ver
+Ingeniería de Calidad (1726)	Materia	4	1er Cuatrimestre			4.00		Ver
+Trayecto formativo alternativo (1725)	Materia	4	1er Cuatrimestre			12.00		Ver
+Redes de Computadoras (1724)	Materia	3	2do Cuatrimestre	Aprobado (Aprobado)		4.00		Ver
+Dispositivos Electrónicos (1723)	Materia	4	1er Cuatrimestre			4.00		Ver
+Matemáticas Especiales (1722)	Materia	4	1er Cuatrimestre			4.00		Ver
+Diseño y Arquitectura de Sistemas de Computación (1721)	Materia	3	2do Cuatrimestre			4.00		Ver
+Comunicación de Datos (1720)	Materia	3	1er Cuatrimestre	Aprobado (Aprobado)		8.00		Ver
+Física II (1719)	Materia	3	2do Cuatrimestre	10 (Aprobado)		8.00		Ver
+Ingeniería de Software (1718)	Materia	3	1er Cuatrimestre			4.00		Ver
+Problemas de Historia del Siglo XX (591)	Materia	1	2do Cuatrimestre	10 (Aprobado)		4.00		
+Cuestiones de Sociología, Economía y Política (3)	Materia	2	1er Cuatrimestre			4.00		
+Cultura Contemporánea (2)	Materia	2	2do Cuatrimestre	Aprobado (Aprobado)		4.00		
+Metodología de la Investigación (1)	Materia	4	2do Cuatrimestre			4.00		Ver
+Inglés Básico (1737)	Materia	2	1er Cuatrimestre	10 (Aprobado)		2.00		
+Inglés Técnico (1738)	Materia	2	2do Cuatrimestre	10 (Aprobado)		2.00		Ver
