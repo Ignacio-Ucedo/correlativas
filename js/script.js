@@ -246,15 +246,18 @@ function extraerCamposHistorial() {
 // Función para procesar las materias del historial
 function procesarMateriasHistorial() {
     const materiasMatches = data.historial.matchAll(patrones.materias);
+    console.log("Materias detectadas:", Array.from(materiasMatches));
     //longitud
-    if (materiasMatches) {
+    if (materiasMatches) { // /Materia\s+(\d+)/gm regex por agregar para detectar año de materia
         data.materiasDetectadas = Array.from(materiasMatches).map(match => {
             const nombre = match[1].trim();
             const codigo = match[2]
+            console.log()
+            console.log("Materias detectadas:", match[4]);
             return {
                 nombre: nombre,
                 codigo: codigo,
-                anio: 1, 
+                anio: materiasMatches[3], //data.campos[2], 
                 periodos_dictado: ["1C"], 
                 carga_horaria: 6, 
                 correlativas: {
